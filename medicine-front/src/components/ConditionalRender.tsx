@@ -4,12 +4,10 @@ interface ConditionalRenderProps {
     children: ReactNode;
     condition: undefined | number| string | boolean;
 }
-const ConditionalRender=({children, condition}:ConditionalRenderProps)=>{
+const ConditionalRender = ({children, condition}:ConditionalRenderProps) => {
 
-    if(!condition){
-
+    if(!condition)
         return null;
-    }
 
     return children;
 

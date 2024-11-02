@@ -1,73 +1,108 @@
 "use client"
-import {Flex, Form} from "antd";
+import { Flex, Form, Typography } from "antd";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
-import Link from "next/link";
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 import Spacer from "@/components/Spacer";
 
 export default function Auth() {
 
-    const onFinish=useCallback((values)=>{
+    const { Text, Link } = Typography;
+
+    const onFinish = useCallback((values: string[])=>{
         console.log(values);
 
     },[]);
 
+    const [inputEmail, setInputEmail] = useState<string>("");
+
+    const [inputPassword, setInputPassword] = useState<string>("");
+
+    const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputEmail(event.target.value);
+        console.log("inputEmail:", event.target.value);
+    };
+
+    const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputPassword(event.target.value);
+        console.log("inputPassword:", event.target.value);
+    };
+
     return(
-<>
+        <Flex style={{marginTop:"100px"}} justify="space-evenly">
+            <Flex justify="center" vertical>
+                <Text
+                    style={{
+                        lineHeight: 1,
+                        color: "#222831",
+                        fontSize: "55px", fontWeight: "bold"
+                }}>
+                    Виртуальный<br/>ассистент
+                </Text>
 
-    <Flex style={{marginTop:"100px",}} wrap justify='space-around'>
-
-        <div style={{
-            fontSize:"40px",
-            color:'rgb(79, 179, 234)',
-            fontWeight:"bold",
-            fontFamily:"Arial",
-            marginBottom:"20px",
-            maxWidth:800,
-            paddingLeft:"20px", paddingRight:"20px"
-
-        }}>
-            Интеллектуальный ассистент слепой диагностики узловых образований щитовидной железы
-        </div>
-
-        <Form onFinish={onFinish} layout="vertical">
-
-            <Flex vertical style={{width: 400}}>
-
-                <div style={{
-                    width: '100%', textAlign: "start", fontWeight: "bold", fontFamily: "Arial",
-                    fontSize: "20px", color: "dimgray", marginBottom: 10
-
-                }}>Войти
-                </div>
-
-                <TextField
-                    errorText='Введите электронную почту пользователя!'
-                    name="login"
-                    required
-                    label="Электронная почта"
-                />
-
-                <TextField
-                    errorText='Введите пароль пользователя!'
-                    name="password"
-                    required
-                    label="Пароль"
-                    isPassword
-                />
-
-                <Spacer space={10} />
-                <Button type="primary" htmlType="submit" title='Войти'/>
-                <Spacer space={10} />
-                <div style={{marginTop:10}}> У вас нет аккаунта? <Link href="/login/register">Зарегистрироваться</Link></div>
-
-
+                <Text
+                    style={{
+                        lineHeight: 1.5,
+                        color: "#818181",
+                        fontSize: "20px",
+                        marginTop:"20px",
+                }}>
+                    Слепая диагностика узловых образований<br/>щитовидной железы
+                </Text>
             </Flex>
 
-        </Form>
+            <Form onFinish={onFinish} layout="vertical">
+                <Flex vertical>
+                    <Text
+                        style={{
+                            width: "100%",
+                            color: "#222831",
+                            fontSize: "35px", fontWeight: "bold"
+                        }}>
+                        Войти
+                    </Text>
 
-    </Flex>
-</>
+                    <TextField
+                        errorText="Введите электронную почту пользователя!"
+                        name="email"
+                        label="Электронная почта"
+                        onChange={handleChangeEmail}
+                    />
+
+                    <TextField
+                        errorText="Введите пароль пользователя!"
+                        name="password"
+                        label="Пароль"
+                        onChange={handleChangePassword}
+                        isPassword
+                    />
+
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        title='Войти'
+                        disabled={!(inputEmail && inputPassword)}
+                    />
+
+                    <Text
+                        strong
+                        style={{
+                            fontSize: "16px",
+                            marginTop: "10px"
+                        }}>
+                        У вас нет аккаунта?
+                        <Link
+                            href="/login/register"
+                            style={{
+                                fontSize: "16px",
+                                color: "#0047E0",
+                                marginLeft: "5px"
+                        }}>
+                            Зарегистрироваться
+                        </Link>
+                    </Text>
+                </Flex>
+            </Form>
+        </Flex>
     )
 }

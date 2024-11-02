@@ -1,18 +1,25 @@
 "use client"
 
-import {Input, Form, Button} from "antd";
-import Password from "antd/es/input/Password";
-const {Item} =Form;
+import { Button } from "antd";
 
-export default function CustomInput({
-    title,
-    type="primary",
-    htmlType,
-    }:{
-    title:string;
-    type:any;
-    htmlType:any;
-    }) {
-    return(<Button style={{width:'100%'}} type={type} size="large" htmlType={htmlType}>{title}</Button>)
+export default function CustomInput({title, htmlType, disabled, type="primary"}:
+{
+    title:string,
+    type:any,
+    htmlType:any,
+    disabled:boolean
+})
+{
+    return(
+        <Button
+            style={{height: 50, width: 350}}
+            type={type}
+            size="large"
+            htmlType={htmlType}
+            disabled={disabled}
+        >
+            {title}
+        </Button>
+    )
 }
 
