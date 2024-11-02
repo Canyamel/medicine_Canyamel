@@ -166,8 +166,7 @@ export default function Auth() {
                     />
                     <Text
                         style={{
-                            display: isValidPassword ? 'none' : 'block',
-                            transition: 'opacity 0.3s ease-in-out'
+                            display: isValidPassword ? 'none' : 'block'
                         }}>
                         Пароль должен содержать:<br/>
                         - Заглавную букву<br/>
