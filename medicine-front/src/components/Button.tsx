@@ -1,25 +1,32 @@
 "use client"
 
-import { Button } from "antd";
+import { Button, ConfigProvider } from "antd";
 
-export default function CustomInput({title, htmlType, disabled, type="primary"}:
-{
-    title:string,
-    type:any,
-    htmlType:any,
-    disabled:boolean
-})
-{
+export default function CustomInput({title, htmlType, type, disabled}: {
+        title:string;
+        type:any;
+        htmlType:any;
+        disabled:boolean;
+    }) {
+
     return(
-        <Button
-            style={{height: 50, width: 350}}
-            type={type}
-            size="large"
-            htmlType={htmlType}
-            disabled={disabled}
-        >
-            {title}
-        </Button>
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: "#0047E0",
+                    colorPrimaryActive: "#0236A5",
+                    colorPrimaryHover: "#2E64EA"
+                }
+            }}>
+            <Button
+                style={{height: 50, width: 350}}
+                size="large"
+                type={type}
+                htmlType={htmlType}
+                disabled={disabled}
+                >
+                {title}
+            </Button>
+        </ConfigProvider>
     )
 }
-
