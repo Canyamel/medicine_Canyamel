@@ -7,25 +7,29 @@ import { memo, useMemo } from "react";
 const { Item } = Form;
 
 interface TextFieldProps {
-    isError?:boolean,
-    isPassword?:boolean,
-    isRequired?:boolean,
     errorText:string,
     label:string,
     name:string,
+    status?:any,
+    isError?:boolean,
+    isPassword?:boolean,
+    isRequired?:boolean,
     onChange?:any,
-    status?:any
-}
+    width?:number;
+    fontWeight?:number
+};
 
 const TextField=({
-    isError,
-    errorText,
-    isPassword=false,
-    isRequired=true,
     label,
     name,
+    errorText,
+    isError,
+    isPassword=false,
+    isRequired=true,
     onChange,
-    status
+    status,
+    width,
+    fontWeight
     }:TextFieldProps) => {
 
     const { rules } = useMemo(() => ({
@@ -42,16 +46,15 @@ const TextField=({
 
     return(
         <Item
-            style={{fontWeight:"700"}}
+            style={{fontWeight:`${fontWeight}`}}
             label={label}
             name={name}
             rules={rules}
             onChange={onChange}
         >
-            {isPassword? <Password style={{height: 50, width: 350}} size="large" status={status} />:<Input style={{height: 50, width: 350}} size="large" status={status} />}
+            {isPassword? <Password style={{width:`${width}px`}} size="large" status={status} />:<Input size="large" style={{width:`${width}px`}} status={status} />}
         </Item>
     )
-}
+};
 
 export default memo(TextField);
-

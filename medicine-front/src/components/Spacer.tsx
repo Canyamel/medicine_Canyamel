@@ -1,8 +1,6 @@
 interface SpacerProps {
-    space:number;
+    space: number;
 }
-const Spacer=({space, condition}:SpacerProps)=> <div style={{height:space}}></div>
+const Spacer=({space}:SpacerProps) => <div style={{height:space}}></div>
 
 export default Spacer;
-
-
