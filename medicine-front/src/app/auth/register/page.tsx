@@ -73,109 +73,111 @@ export default function Auth() {
         inputPassword === inputConfirmPassword;
 
     return(
-        <Form className="container" onFinish={onFinish} layout='vertical' form={form}>
-            <Flex vertical>
-                <Text className="title_auth">
-                    Зарегистрироваться
-                </Text>
-
-                <Spacer space={5}/>
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Введите вашу фамилию'
-                    name='lastName'
-                    label='Фамилия'
-                    onChange={handleChangeLastName}
-                />
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Введите Ваше имя'
-                    name='firstName'
-                    label='Имя'
-                    onChange={handleChangeFirstName}
-                />
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Введите Ваше отчество'
-                    name='fatherName'
-                    label='Отчество'
-                    onChange={handleChangeFatherName}
-                />
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Введите название медицинской организации, в которой Вы работаете'
-                    name='medOrganisation'
-                    label='Мед. организация'
-                    onChange={handleChangeMedOrganization}
-                />
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Введите почту'
-                    name='email'
-                    type='email'
-                    label='Электронная почта'
-                    onChange={handleChangeEmail}
-                />
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Ввведите надёжный пароль'
-                    name='password'
-                    label='Пароль'
-                    isPassword
-                    condition={validatePassword}
-                    onChange={handleChangePassword}
-                    status={inputPassword === inputConfirmPassword ? '' : 'error'}
-                />
-
-                <Space style={{overflow: 'hidden', height: isValidPassword ? 0 : 115, transition: 'height 0.5s ease-in-out'}}>
-                    <Text>
-                        Пароль должен содержать:<br/>
-                        - Заглавную букву<br/>
-                        - Строчную букву<br/>
-                        - Cпециальный символ (- # ! $ % ^ & * _ + | = ? , . / \)<br/>
-                        - Минимум 8 знаков
+        <>
+            <Form className="container" onFinish={onFinish} layout='vertical' form={form}>
+                <Flex vertical>
+                    <Text className="title_auth">
+                        Зарегистрироваться
                     </Text>
-                </Space>
-
-                <TextField
-                    fontWeight={fontWeight}
-                    errorText='Повторите пароль'
-                    name='confirmPassword'
-                    label='Повторите пароль'
-                    isPassword
-                    condition={validatePassword}
-                    onChange={handleChangeConfirmPassword}
-                    status={inputPassword === inputConfirmPassword ? '' : 'error'}
-                />
-
-                <Spacer space={10}/>
-
-                <Button
-                    title='Создать аккаунт'
-                    type='primary'
-                    htmlType='submit'
-                    size='large'
-                    disabled={!isFormValid}
-                />
-
-                <Spacer space={10}/>
-
-                <Space>
-                    <Text className="text_strong">
-                        Уже есть аккаунт?
-                    </Text>
-
-                    <Link href='/auth/login' className="link_strong">
-                        Войти
-                    </Link>
-                </Space>
-            </Flex>
-        </Form>
+    
+                    <Spacer space={5}/>
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Введите вашу фамилию'
+                        name='lastName'
+                        label='Фамилия'
+                        onChange={handleChangeLastName}
+                    />
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Введите Ваше имя'
+                        name='firstName'
+                        label='Имя'
+                        onChange={handleChangeFirstName}
+                    />
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Введите Ваше отчество'
+                        name='fatherName'
+                        label='Отчество'
+                        onChange={handleChangeFatherName}
+                    />
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Введите название медицинской организации, в которой Вы работаете'
+                        name='medOrganisation'
+                        label='Мед. организация'
+                        onChange={handleChangeMedOrganization}
+                    />
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Введите почту'
+                        name='email'
+                        type='email'
+                        label='Электронная почта'
+                        onChange={handleChangeEmail}
+                    />
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Ввведите надёжный пароль'
+                        name='password'
+                        label='Пароль'
+                        isPassword
+                        condition={validatePassword}
+                        onChange={handleChangePassword}
+                        status={inputPassword === inputConfirmPassword ? '' : 'error'}
+                    />
+    
+                    <Space style={{overflow: 'hidden', height: isValidPassword ? 0 : 115, transition: 'height 0.5s ease-in-out'}}>
+                        <Text>
+                            Пароль должен содержать:<br/>
+                            - Заглавную букву<br/>
+                            - Строчную букву<br/>
+                            - Cпециальный символ (- # ! $ % ^ & * _ + | = ? , . / \)<br/>
+                            - Минимум 8 знаков
+                        </Text>
+                    </Space>
+    
+                    <TextField
+                        fontWeight={fontWeight}
+                        errorText='Повторите пароль'
+                        name='confirmPassword'
+                        label='Повторите пароль'
+                        isPassword
+                        condition={validatePassword}
+                        onChange={handleChangeConfirmPassword}
+                        status={inputPassword === inputConfirmPassword ? '' : 'error'}
+                    />
+    
+                    <Spacer space={10}/>
+    
+                    <Button
+                        title='Создать аккаунт'
+                        type='primary'
+                        htmlType='submit'
+                        size='large'
+                        disabled={!isFormValid}
+                    />
+    
+                    <Spacer space={10}/>
+    
+                    <Space>
+                        <Text className="text_strong">
+                            Уже есть аккаунт?
+                        </Text>
+    
+                        <Link href='/auth/login' className="link_strong">
+                            Войти
+                        </Link>
+                    </Space>
+                </Flex>
+            </Form>
+        </>
     );
 }
