@@ -17,9 +17,10 @@ export default function Auth() {
 
     const [form] = Form.useForm();
 
-    const [inputEmail, setInputEmail] = useState<string>('');
+    const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputEmail(e.target.value);
+        const hasEmailPattern = /^[^\s@]+@[a-zа-я]{2,}\.[a-zа-я]{2,}$/;
+        setIsValidEmail(hasEmailPattern.test(e.target.value));
     };
 
     const [inputPassword, setInputPassword] = useState<string>('');
@@ -28,7 +29,7 @@ export default function Auth() {
     };
 
     const isFormValid =
-        inputEmail &&
+        isValidEmail &&
         inputPassword;
 
     return(
