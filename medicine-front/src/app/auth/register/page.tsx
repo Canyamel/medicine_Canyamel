@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, Form, Space, Tooltip } from 'antd';
+import { Flex, Form, Space } from 'antd';
 import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import TextField from '@/components/TextField';
@@ -9,60 +9,56 @@ import Text from '@/components/Text';
 import Spacer from '@/components/Spacer';
 
 export default function Auth() {
+    const fontWeight = 700;
+
+    const [form] = Form.useForm();
+
     const onFinish = useCallback((values: string[])=>{
         console.log(values);
     },[]);
 
-    const [form] = Form.useForm();
-
     const [inputLastName, setInputLastName] = useState<string>('');
-    const [inputFirstName, setInputFirstName] = useState<string>('');
-    const [inputFatherName, setInputFatherName] = useState<string>('');
-
-    const [inputEmail, setInputEmail] = useState<string>('');
-    const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
-
-    const [inputMedOrganization, setInputMedOrganization] = useState<string>('');
-
-    const [inputPassword, setInputPassword] = useState<string>('');
-    const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
-    const [inputConfirmPassword, setInputConfirmPassword] = useState<string>('');
-
-
     const handleChangeLastName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputLastName(e.target.value);
     };
 
+    const [inputFirstName, setInputFirstName] = useState<string>('');
     const handleChangeFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputFirstName(e.target.value);
     };
 
+    const [inputFatherName, setInputFatherName] = useState<string>('');
     const handleChangeFatherName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputFatherName(e.target.value);
     };
 
+    const [inputMedOrganization, setInputMedOrganization] = useState<string>('');
     const handleChangeMedOrganization = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputMedOrganization(e.target.value);
     };
 
+    const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputEmail(e.target.value);
-
-        const hasEmailPattern = /^[^\s@]+@[a-zа-я]{2,}\.[a-zа-я]{2,}$/.test(e.target.value);
-        setIsValidEmail(hasEmailPattern);
+        const hasEmailPattern = /^[^\s@]+@[a-zа-я]{2,}\.[a-zа-я]{2,}$/;
+        setIsValidEmail(hasEmailPattern.test(e.target.value));
     };
 
+    const [inputPassword, setInputPassword] = useState<string>('');
+    const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+    const validatePassword = (password:string) => {
+        const hasMinLength = password.length >= 8;
+        const hasUpperLetter = /[A-ZА-Я]/.test(password);
+        const hasLowerLetter = /[a-zа-я]/.test(password);
+        const hasSpecialCharacter = /[#!\$%&^*_+\|=?,\.\/\\]/.test(password);
+        return hasMinLength && hasUpperLetter && hasUpperLetter && hasLowerLetter && hasSpecialCharacter;
+    };
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPassword(e.target.value);
 
-        const hasMinLength = e.target.value.length >= 8;
-        const hasUpperLetter = /[A-ZА-Я]/.test(e.target.value);
-        const hasLowerLetter = /[a-zа-я]/.test(e.target.value);
-        const hasSpecialCharacter = /[#!\$%&^*_+\|=?,\.\/\\]/.test(e.target.value);
-
-        setIsValidPassword(hasMinLength && hasUpperLetter && hasLowerLetter && hasSpecialCharacter);
+        setIsValidPassword(validatePassword(e.target.value));
     };
 
+    const [inputConfirmPassword, setInputConfirmPassword] = useState<string>('');
     const handleChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputConfirmPassword(e.target.value);
     };
@@ -72,22 +68,21 @@ export default function Auth() {
         inputFirstName &&
         inputFatherName &&
         inputMedOrganization &&
-        inputEmail &&
         isValidEmail &&
-        inputPassword &&
         isValidPassword &&
-        inputConfirmPassword &&
         inputPassword === inputConfirmPassword;
 
     return(
-        <Form onFinish={onFinish} layout='vertical' form={form}>
+        <Form className="container" onFinish={onFinish} layout='vertical' form={form}>
             <Flex vertical>
                 <Text className="title_auth">
                     Зарегистрироваться
                 </Text>
 
+                <Spacer space={5}/>
+
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Введите вашу фамилию'
                     name='lastName'
                     label='Фамилия'
@@ -95,7 +90,7 @@ export default function Auth() {
                 />
 
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Введите Ваше имя'
                     name='firstName'
                     label='Имя'
@@ -103,7 +98,7 @@ export default function Auth() {
                 />
 
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Введите Ваше отчество'
                     name='fatherName'
                     label='Отчество'
@@ -111,7 +106,7 @@ export default function Auth() {
                 />
 
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Введите название медицинской организации, в которой Вы работаете'
                     name='medOrganisation'
                     label='Мед. организация'
@@ -119,48 +114,44 @@ export default function Auth() {
                 />
 
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Введите почту'
                     name='email'
+                    type='email'
                     label='Электронная почта'
                     onChange={handleChangeEmail}
-                    status={isValidEmail ? '' : 'error'}
                 />
 
-                <Tooltip
-                    placement='left'
-                    open={!isValidPassword}
-                    title={
-                        <Text>
-                            Пароль должен содержать:<br/>
-                            - Заглавную букву<br/>
-                            - Строчную букву<br/>
-                            - Cпециальный символ (- # ! $ % ^ & * _ + | = ? , . / \)<br/>
-                            - Минимум 8 знаков
-                        </Text>
-                }>
-                    <Space>
-                        <TextField
-                            fontWeight={700}
-                            width={350}
-                            errorText='Ввведите пароль'
-                            name='password'
-                            label='Пароль'
-                            isPassword
-                            onChange={handleChangePassword}
-                            status={isValidPassword ? '' : 'error'}
-                        />
-                    </Space>
-                </Tooltip>
+                <TextField
+                    fontWeight={fontWeight}
+                    errorText='Ввведите надёжный пароль'
+                    name='password'
+                    label='Пароль'
+                    isPassword
+                    condition={validatePassword}
+                    onChange={handleChangePassword}
+                    status={inputPassword === inputConfirmPassword ? '' : 'error'}
+                />
+
+                <Space style={{overflow: 'hidden', height: isValidPassword ? 0 : 115, transition: 'height 0.5s ease-in-out'}}>
+                    <Text>
+                        Пароль должен содержать:<br/>
+                        - Заглавную букву<br/>
+                        - Строчную букву<br/>
+                        - Cпециальный символ (- # ! $ % ^ & * _ + | = ? , . / \)<br/>
+                        - Минимум 8 знаков
+                    </Text>
+                </Space>
 
                 <TextField
-                    fontWeight={700}
+                    fontWeight={fontWeight}
                     errorText='Повторите пароль'
                     name='confirmPassword'
                     label='Повторите пароль'
                     isPassword
+                    condition={validatePassword}
                     onChange={handleChangeConfirmPassword}
-                    status={inputPassword === inputConfirmPassword && inputConfirmPassword != '' ? '' : 'error'}
+                    status={inputPassword === inputConfirmPassword ? '' : 'error'}
                 />
 
                 <Spacer space={10}/>

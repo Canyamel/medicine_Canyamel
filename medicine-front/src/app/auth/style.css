@@ -15,6 +15,10 @@
     font-size: 20px;
 }
 
+.container {
+    width: 350px;
+}
+
 .title_auth {
     width: 100%;
     font-size: 35px;
@@ -42,8 +46,4 @@
 
 .link_strong:active {
     color: #0236A5;
-}
-
-.button_auth {
-    height: 50px;
 }

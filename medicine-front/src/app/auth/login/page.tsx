@@ -9,9 +9,13 @@ import Button from '@/components/Button';
 import Spacer from '@/components/Spacer';
 
 export default function Auth() {
+    const fontWeight = 700;
+
     const onFinish = useCallback((values: string[]) => {
         console.log(values);
     }, []);
+
+    const [form] = Form.useForm();
 
     const [inputEmail, setInputEmail] = useState<string>('');
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +33,7 @@ export default function Auth() {
 
     return(
         <>
-            <Form onFinish={onFinish} layout='vertical'>
+            <Form className="container" onFinish={onFinish} layout='vertical' form={form}>
                 <Flex vertical>
                     <Text className="title_auth">
                         Войти
@@ -38,7 +42,7 @@ export default function Auth() {
                     <Spacer space={5}/>
 
                     <TextField
-                        fontWeight={700}
+                        fontWeight={fontWeight}
                         errorText='Введите электронную почту пользователя!'
                         name='email'
                         label='Электронная почта'
@@ -46,7 +50,7 @@ export default function Auth() {
                     />
 
                     <TextField
-                        fontWeight={700}
+                        fontWeight={fontWeight}
                         errorText='Введите пароль пользователя!'
                         name='password'
                         label='Пароль'

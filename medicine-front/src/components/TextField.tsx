@@ -1,60 +1,66 @@
 "use client"
 
 import { Input, Form } from "antd";
-import Password from "antd/es/input/Password";
-import { memo, useMemo } from "react";
 
 const { Item } = Form;
+const { Password } = Input;
 
 interface TextFieldProps {
-    errorText:string,
-    label:string,
     name:string,
     status?:any,
+    label:string,
+    type?: 'string' | 'number' | 'email',
+    errorText:string,
     isError?:boolean,
     isPassword?:boolean,
     isRequired?:boolean,
     onChange?:any,
-    width?:number;
-    fontWeight?:number
+    condition?:(value: any) => boolean,
+    fontWeight?:number,
 };
 
 const TextField=({
-    label,
     name,
+    status,
+    label,
+    type='string',
     errorText,
     isError,
     isPassword=false,
     isRequired=true,
     onChange,
-    status,
-    width,
+    condition,
     fontWeight
     }:TextFieldProps) => {
-
-    const { rules } = useMemo(() => ({
-            rules: [{
-                required: isRequired,
-                message: errorText,
-                type: 'string',
-                validator: (_:void, value:string) => isError || (isRequired && !value) ?
-                    Promise.reject(new Error(errorText)) :
-                    Promise.resolve()
-            }]
-
-        }),[isError, errorText, isRequired])
-
     return(
         <Item
-            style={{fontWeight:`${fontWeight}`}}
+            style={{fontWeight:`${fontWeight}`, marginBottom: isError ? 25 : 5}}
             label={label}
             name={name}
-            rules={rules}
-            onChange={onChange}
+            rules={[
+                {
+                    type: type,
+                    required: isRequired,
+                    message: errorText,
+                    ...(condition && {
+                        validator(_: any, value: any) {
+                            if (!value)
+                                return Promise.resolve();
+                            if (!condition(value))
+                                return Promise.reject(errorText);
+                            return Promise.resolve();
+                        },
+                    }),
+                },
+            ]}
         >
-            {isPassword? <Password style={{width:`${width}px`}} size="large" status={status} />:<Input size="large" style={{width:`${width}px`}} status={status} />}
+            {isPassword?
+                <Password size="large" status={status} onChange={onChange} />
+                :
+                <Input size="large" status={status} onChange={onChange} />
+            }
         </Item>
     )
 };
 
-export default memo(TextField);
+export default TextField;
