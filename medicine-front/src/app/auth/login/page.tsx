@@ -45,6 +45,7 @@ export default function Auth() {
                         fontWeight={fontWeight}
                         errorText='Введите электронную почту пользователя!'
                         name='email'
+                        type='email'
                         label='Электронная почта'
                         onChange={handleChangeEmail}
                     />
