@@ -3,10 +3,10 @@
 import { Flex, Form, Space } from 'antd';
 import { useCallback, useState } from 'react';
 import Link from 'next/link';
-import TextField from '@/components/TextField';
-import Button from '@/components/Button';
-import Text from '@/components/Text';
-import Spacer from '@/components/Spacer';
+import TextField from '@/components/Universal/TextField/TextField';
+import Text from '@/components/Universal/Text/Text';
+import Button from '@/components/Universal/Button/Button';
+import Spacer from '@/components/Universal/Spacer/Spacer';
 
 export default function Auth() {
     const fontWeight = 700;
@@ -39,7 +39,7 @@ export default function Auth() {
 
     const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const hasEmailPattern = /^[^\s@]+@[a-zа-я]{2,}\.[a-zа-я]{2,}$/;
+        const hasEmailPattern = /^[^\s@]+@[a-zа-я]+\.[a-zа-я]{2,}$/;
         setIsValidEmail(hasEmailPattern.test(e.target.value));
     };
 
@@ -63,6 +63,16 @@ export default function Auth() {
         setInputConfirmPassword(e.target.value);
     };
 
+    const [isVisibleSupportTextPassword, setIsVisibleSupportTextPassword] = useState<boolean>(false)
+
+    const handleInputFocus = () => {
+        setIsVisibleSupportTextPassword(true);
+    };
+
+    const handleInputBlur = () => {
+        setIsVisibleSupportTextPassword(false);
+    };
+
     const isFormValid =
         inputLastName &&
         inputFirstName &&
@@ -79,9 +89,9 @@ export default function Auth() {
                     <Text className="title_auth">
                         Зарегистрироваться
                     </Text>
-    
+
                     <Spacer space={5}/>
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Введите вашу фамилию'
@@ -89,7 +99,7 @@ export default function Auth() {
                         label='Фамилия'
                         onChange={handleChangeLastName}
                     />
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Введите Ваше имя'
@@ -97,7 +107,7 @@ export default function Auth() {
                         label='Имя'
                         onChange={handleChangeFirstName}
                     />
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Введите Ваше отчество'
@@ -105,7 +115,7 @@ export default function Auth() {
                         label='Отчество'
                         onChange={handleChangeFatherName}
                     />
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Введите название медицинской организации, в которой Вы работаете'
@@ -113,7 +123,7 @@ export default function Auth() {
                         label='Мед. организация'
                         onChange={handleChangeMedOrganization}
                     />
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Введите почту'
@@ -122,7 +132,7 @@ export default function Auth() {
                         label='Электронная почта'
                         onChange={handleChangeEmail}
                     />
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Ввведите надёжный пароль'
@@ -131,10 +141,11 @@ export default function Auth() {
                         isPassword
                         condition={validatePassword}
                         onChange={handleChangePassword}
-                        status={inputPassword === inputConfirmPassword ? '' : 'error'}
+                        onFocus={handleInputFocus}
+                        onBlur={handleInputBlur}
                     />
-    
-                    <Space style={{overflow: 'hidden', height: isValidPassword ? 0 : 115, transition: 'height 0.5s ease-in-out'}}>
+
+                    <Space style={{overflow: 'hidden', height: isVisibleSupportTextPassword ? 115 : 0, transition: 'height 0.5s ease-in-out'}}>
                         <Text>
                             Пароль должен содержать:<br/>
                             - Заглавную букву<br/>
@@ -143,7 +154,7 @@ export default function Auth() {
                             - Минимум 8 знаков
                         </Text>
                     </Space>
-    
+
                     <TextField
                         fontWeight={fontWeight}
                         errorText='Повторите пароль'
@@ -154,9 +165,9 @@ export default function Auth() {
                         onChange={handleChangeConfirmPassword}
                         status={inputPassword === inputConfirmPassword ? '' : 'error'}
                     />
-    
+
                     <Spacer space={10}/>
-    
+
                     <Button
                         title='Создать аккаунт'
                         type='primary'
@@ -164,14 +175,14 @@ export default function Auth() {
                         size='large'
                         disabled={!isFormValid}
                     />
-    
+
                     <Spacer space={10}/>
-    
+
                     <Space>
                         <Text className="text_strong">
                             Уже есть аккаунт?
                         </Text>
-    
+
                         <Link href='/auth/login' className="link_strong">
                             Войти
                         </Link>

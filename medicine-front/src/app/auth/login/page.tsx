@@ -3,10 +3,10 @@
 import { useCallback, useState } from 'react';
 import { Flex, Form, Space } from 'antd';
 import Link from "next/link";
-import TextField from '@/components/TextField';
-import Text from '@/components/Text';
-import Button from '@/components/Button';
-import Spacer from '@/components/Spacer';
+import TextField from '@/components/Universal/TextField/TextField';
+import Text from '@/components/Universal/Text/Text';
+import Button from '@/components/Universal/Button/Button';
+import Spacer from '@/components/Universal/Spacer/Spacer';
 
 export default function Auth() {
     const fontWeight = 700;

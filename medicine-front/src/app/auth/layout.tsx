@@ -2,8 +2,8 @@
 
 import './style.css';
 import { Flex, ConfigProvider } from 'antd';
-import Spacer from '@/components/Spacer';
-import Text from "@/components/Text";
+import Text from '@/components/Universal/Text/Text';
+import Spacer from '@/components/Universal/Spacer/Spacer';
 
 export default function AuthLayout({ children }: React.PropsWithChildren) {
     return (
@@ -16,9 +16,8 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
                     controlHeightLG: 50
                 }
         }}>
-            <Flex className="page" justify='space-evenly'>
+            <Flex className="page page_auth" justify='space-evenly'>
                 <Flex vertical>
-                    <Spacer space={130}/>
                     <Text className="title_first">
                         Виртуальный<br/>ассистент
                     </Text>

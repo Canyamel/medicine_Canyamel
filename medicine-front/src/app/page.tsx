@@ -1,6 +1,15 @@
 
 import { redirect } from 'next/navigation';
 
-export default async function Login() {
-  return redirect('/auth/login/');
+import { auth } from '@/auth';
+
+export default async function Home() {
+  //const session = await auth();
+  //const user = session?.user;
+    if (false) {
+        //logged users
+        return redirect('/dashboard/projects');
+    }
+  // not logged users
+    return redirect('/auth/login/');
 }
