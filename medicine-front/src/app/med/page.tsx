@@ -180,7 +180,6 @@ export default function SendCard() {
                             />
                         </Item>
 
-
                         <Spacer space={10} />
 
                         <Button
