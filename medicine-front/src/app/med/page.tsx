@@ -183,7 +183,6 @@ export default function SendCard() {
                         <Spacer space={10} />
 
                         <Button
-                            style={{borderRadius:8}}
                             title='Отправить'
                             type='primary'
                             htmlType='submit'
