@@ -88,13 +88,20 @@ export default function SendCard() {
         return null;
     };
 
-    const formatTag = (id: number) => {
-        const specialist = specialistOptions.find((s) => s.id === id);
-        if (specialist) {
-            return `${specialist.lastName} ${specialist.firstName.charAt(0)}.${specialist.fatherName.charAt(0)}.`
-        }
-        return null;
-    };
+    const tagRender = (props: any) => {
+        const { onClose } = props;
+        const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
+            event.preventDefault();
+            event.stopPropagation();
+        };
+        return (
+            <Tooltip title={formatTooltip(props.value)}>
+                <Tag onClose={onClose} onMouseDown={onPreventMouseDown} style={{ height: '30px', lineHeight: '28px' }} closable>
+                    {formatTag(props.value)}
+                </Tag>
+            </Tooltip>
+            );
+    }
 
     const tagRender = (props: any) => {
         return (
