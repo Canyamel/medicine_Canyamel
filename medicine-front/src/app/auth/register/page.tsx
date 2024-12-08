@@ -117,7 +117,7 @@ export default function Register() {
                     />
 
                     <Space style={{overflow: 'hidden', height: isVisibleSupportTextPassword ? 115 : 0, transition: 'height 0.5s ease-in-out'}}>
-                        <Text>
+                        <Text className="condition_password">
                             Пароль должен содержать:<br/>
                             - Заглавную букву<br/>
                             - Строчную букву<br/>
@@ -132,7 +132,7 @@ export default function Register() {
                         label='Повторите пароль'
                         isPassword
                         condition={validatePassword}
-                        status={ watchedPassword === watchedConfirmPassword ? '' : 'error' }
+                        status={watchedPassword === watchedConfirmPassword ? '' : 'error'}
                     />
 
                     <Spacer space={10}/>

@@ -52,3 +52,7 @@
 .link_strong:active {
     color: #0236A5;
 }
+
+.condition_password {
+    font-weight: 600;
+}

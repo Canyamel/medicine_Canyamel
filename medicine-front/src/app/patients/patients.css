@@ -1,0 +1,21 @@
+.patients_page{
+    padding:30px;
+    font-family:Arial, serif;
+}
+
+.table_button{
+
+    color:blue;
+    cursor:pointer;
+    text-align:center;
+}
+
+.medical_organization_title{
+    color:gray;
+}
+
+.medical_organization_edit_icon{
+    cursor:pointer;
+    font-size:20px;
+    color:blue !important;
+}
